@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CustomFragmentAdapter extends FragmentPagerAdapter {
+public class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> mFragments = new ArrayList<>();
     private String[] tabTitles;
 
-    public CustomFragmentAdapter(FragmentManager fragmentManager, String[] tabNames) {
+    public CustomFragmentPagerAdapter(FragmentManager fragmentManager, String[] tabNames) {
         super(fragmentManager);
         this.tabTitles = tabNames;
     }

@@ -1,6 +1,5 @@
 package com.robop.attendancerecord;
 
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     TabLayout tabLayout;
 
-    CustomFragmentAdapter customFragmentAdapter;
+    CustomFragmentPagerAdapter customFragmentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("曜日");
         setSupportActionBar(toolbar);
 
-        customFragmentAdapter = new CustomFragmentAdapter(getSupportFragmentManager(), tabNames);
+        customFragmentAdapter = new CustomFragmentPagerAdapter(getSupportFragmentManager(), tabNames);
         for(int i=0; i<6; i++){
-            customFragmentAdapter.addFragment(MainFragment.newInstance());
+            customFragmentAdapter.addFragment(ScheduleFragment.newInstance());
         }
 
         viewPager.setAdapter(customFragmentAdapter);
