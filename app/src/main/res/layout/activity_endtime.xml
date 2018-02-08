@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.robop.attendancerecord.EndTimeActivity">
+
+
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="授業終了時刻"
+        android:textSize="25sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center_horizontal|top"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/firstPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1限目"
+        android:textSize="23sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/textView1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/secondPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2限目"
+        android:textSize="23sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/firstPeriod"
+        android:layout_alignLeft="@+id/firstPeriod"
+        android:layout_alignStart="@+id/firstPeriod" />
+
+    <TextView
+        android:id="@+id/thirdPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3限目"
+        android:textSize="23sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/secondPeriod"
+        android:layout_alignLeft="@+id/secondPeriod"
+        android:layout_alignStart="@+id/secondPeriod"
+        android:layout_marginTop="29dp" />
+
+    <TextView
+        android:id="@+id/fourthPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4限目"
+        android:textSize="23sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/thirdPeriod"
+        android:layout_alignLeft="@+id/thirdPeriod"
+        android:layout_alignStart="@+id/thirdPeriod"
+        android:layout_marginTop="25dp" />
+
+    <TextView
+        android:id="@+id/fivePeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5限目"
+        android:textSize="23sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/fourthPeriod"
+        android:layout_alignLeft="@+id/thirdPeriod"
+        android:layout_alignStart="@+id/thirdPeriod" />
+
+    <TextView
+        android:id="@+id/firstTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="23sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="10:50"
+        android:layout_alignBaseline="@+id/firstPeriod"
+        android:layout_alignBottom="@+id/firstPeriod"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignStart="@+id/textView1"
+        android:layout_marginLeft="76dp"
+        android:layout_marginStart="76dp" />
+
+    <TextView
+        android:id="@+id/secondTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="23sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="12:40"
+        android:layout_alignBaseline="@+id/secondPeriod"
+        android:layout_alignBottom="@+id/secondPeriod"
+        android:layout_alignLeft="@+id/firstTime"
+        android:layout_alignStart="@+id/firstTime" />
+
+    <TextView
+        android:id="@+id/thirdTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="23sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="15:10"
+        android:layout_alignBaseline="@+id/thirdPeriod"
+        android:layout_alignBottom="@+id/thirdPeriod"
+        android:layout_alignLeft="@+id/secondTime"
+        android:layout_alignStart="@+id/secondTime" />
+
+    <TextView
+        android:id="@+id/fourthTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="23sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="17:00"
+        android:layout_alignBaseline="@+id/fourthPeriod"
+        android:layout_alignBottom="@+id/fourthPeriod"
+        android:layout_alignLeft="@+id/thirdTime"
+        android:layout_alignStart="@+id/thirdTime" />
+
+    <TextView
+        android:id="@+id/fiveTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="23sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="18:50"
+        android:layout_alignBaseline="@+id/fivePeriod"
+        android:layout_alignBottom="@+id/fivePeriod"
+        android:layout_alignLeft="@+id/fourthTime"
+        android:layout_alignStart="@+id/fourthTime" />
+
+    <TextView
+        android:id="@+id/timing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="通知タイミング"
+        android:textSize="25sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center_horizontal|top"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/fiveTime"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/endOfLesson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="授業終了"
+        android:textSize="25sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/timing"
+        android:layout_alignLeft="@+id/fivePeriod"
+        android:layout_alignStart="@+id/fivePeriod" />
+
+    <EditText
+        android:id="@+id/editText5"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="25sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint="分前"
+        android:gravity="right"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/endOfLesson"
+        android:layout_alignBottom="@+id/endOfLesson"
+        android:layout_alignLeft="@+id/endOfLesson"
+        android:layout_alignStart="@+id/endOfLesson"
+        android:layout_alignRight="@+id/timing"
+        android:layout_alignEnd="@+id/timing" />
+
+    <Button
+        android:id="@+id/button1"
+        android:onClick="onClickButton01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="変更"
+        android:textSize="20sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignBaseline="@+id/firstTime"
+        android:layout_alignBottom="@+id/firstTime"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="変更"
+        android:textSize="20sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignBaseline="@+id/secondTime"
+        android:layout_alignBottom="@+id/secondTime"
+        android:layout_alignLeft="@+id/button5"
+        android:layout_alignStart="@+id/button5" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="変更"
+        android:textSize="20sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_above="@+id/button4"
+        android:layout_alignLeft="@+id/button4"
+        android:layout_alignStart="@+id/button4" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="変更"
+        android:textSize="20sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_above="@+id/button5"
+        android:layout_alignLeft="@+id/button5"
+        android:layout_alignStart="@+id/button5" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="変更"
+        android:textSize="20sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_above="@+id/timing"
+        android:layout_toRightOf="@+id/timing"
+        android:layout_toEndOf="@+id/timing" />
+
+</RelativeLayout>
