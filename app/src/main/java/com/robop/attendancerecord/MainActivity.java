@@ -1,5 +1,6 @@
 package com.robop.attendancerecord;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -8,7 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
+
+    private int ALARM_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +21,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         attendanceNotification();
+    }
+
+    private void setAlarmTime(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());   //現在時刻取得
+
+        calendar.add(Calendar.SECOND, 5);
+        /*
+        Intent intent = new Intent(getApplicationContext(), AlarmNotification.class);
+        intent.putExtra("RequestCode", ALARM_REQUEST_CODE);
+        */
     }
 
     private void attendanceNotification(){
