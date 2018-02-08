@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/classNum"
+            android:text="科目名"
+            android:layout_weight="2"
+            android:maxLines="1"
+            android:layout_marginRight="@dimen/dp_s"
+            android:padding="@dimen/dp_m"
+            android:textSize="40dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="0.81">
+
+        <TextView
+            android:id="@+id/absentRecord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="@dimen/dp_m"
+            android:text="欠席回数 : "
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/lateRecord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="遅刻回数 : "
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="@dimen/dp_m"
+            android:textSize="30dp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
