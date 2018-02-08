@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.alertSetting:
-
+                Intent intent = new Intent(this, EndTimeActivity.class);
+                startActivity(intent);
                 break;
         }
         return true;
