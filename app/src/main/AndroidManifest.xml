@@ -19,6 +19,12 @@
         <activity android:name=".EndTimeActivity">
 
         </activity>
+
+        <receiver
+            android:name=".AlarmNotification"
+            android:process=":remote" />
+
+        <activity android:name=".AttendanceResultActivity"></activity>
     </application>
 
 </manifest>
