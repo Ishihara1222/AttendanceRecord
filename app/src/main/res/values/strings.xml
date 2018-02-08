@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AttendanceRecord</string>
+    <string-array name="tabNames">
+        <item>月</item>
+        <item>火</item>
+        <item>水</item>
+        <item>木</item>
+        <item>金</item>
+        <item>土</item>
+    </string-array>
 </resources>
