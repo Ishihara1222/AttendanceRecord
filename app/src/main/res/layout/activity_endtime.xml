@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     tools:context="com.robop.attendancerecord.EndTimeActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:minHeight="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    </android.support.v7.widget.Toolbar>
 
 
     <TextView
@@ -17,8 +26,8 @@
         android:textSize="25sp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center_horizontal|top"
-        android:layout_marginTop="15dp"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -170,7 +179,7 @@
         android:layout_alignStart="@+id/fivePeriod" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/editText"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="25sp"
@@ -201,6 +210,7 @@
 
     <Button
         android:id="@+id/button2"
+        android:onClick="onClickButton02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="変更"
@@ -213,6 +223,7 @@
 
     <Button
         android:id="@+id/button3"
+        android:onClick="onClickButton03"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="変更"
@@ -224,6 +235,7 @@
 
     <Button
         android:id="@+id/button4"
+        android:onClick="onClickButton04"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="変更"
@@ -235,6 +247,7 @@
 
     <Button
         android:id="@+id/button5"
+        android:onClick="onClickButton05"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="変更"
@@ -243,5 +256,7 @@
         android:layout_above="@+id/timing"
         android:layout_toRightOf="@+id/timing"
         android:layout_toEndOf="@+id/timing" />
+
+
 
 </RelativeLayout>
