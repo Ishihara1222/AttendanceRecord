@@ -53,7 +53,8 @@ public class CustomScheduleListAdapter extends ArrayAdapter<CustomScheduleInfoLi
         CustomScheduleInfoListItem item = this.scheduleInfoItems.get(position);
 
         viewHolder.classNumHolder.setText(position+1 + "限");
-        //TODO 各データの取得
+
+        //Realmの処理はScheduleFragment.javaにある
         viewHolder.subjectNameHolder.setText("教科名 : " + item.getSubjectName());
         viewHolder.absentNumHolder.setText("欠席回数 : " + String.valueOf(item.getAbsentNum()) + "回");
         viewHolder.lateNumHolder.setText("遅刻回数 : " + String.valueOf(item.getLateNum()) + "回");

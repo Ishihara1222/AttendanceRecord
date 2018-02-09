@@ -154,46 +154,8 @@
         android:layout_alignLeft="@+id/fourthTime"
         android:layout_alignStart="@+id/fourthTime" />
 
-    <TextView
-        android:id="@+id/timing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="通知タイミング"
-        android:textSize="25sp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center_horizontal|top"
-        android:layout_marginTop="36dp"
-        android:layout_below="@+id/fiveTime"
-        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/endOfLesson"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="授業終了"
-        android:textSize="25sp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/timing"
-        android:layout_alignLeft="@+id/fivePeriod"
-        android:layout_alignStart="@+id/fivePeriod" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="25sp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:hint="分前"
-        android:gravity="right"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/endOfLesson"
-        android:layout_alignBottom="@+id/endOfLesson"
-        android:layout_alignLeft="@+id/endOfLesson"
-        android:layout_alignStart="@+id/endOfLesson"
-        android:layout_alignRight="@+id/timing"
-        android:layout_alignEnd="@+id/timing" />
 
     <Button
         android:id="@+id/button1"
@@ -229,9 +191,10 @@
         android:text="変更"
         android:textSize="20sp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_above="@+id/button4"
-        android:layout_alignLeft="@+id/button4"
-        android:layout_alignStart="@+id/button4" />
+        android:layout_alignBaseline="@+id/thirdTime"
+        android:layout_alignBottom="@+id/thirdTime"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2" />
 
     <Button
         android:id="@+id/button4"
@@ -241,9 +204,10 @@
         android:text="変更"
         android:textSize="20sp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_above="@+id/button5"
-        android:layout_alignLeft="@+id/button5"
-        android:layout_alignStart="@+id/button5" />
+        android:layout_alignBaseline="@+id/fourthTime"
+        android:layout_alignBottom="@+id/fourthTime"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_alignStart="@+id/button3" />
 
     <Button
         android:id="@+id/button5"
@@ -253,9 +217,12 @@
         android:text="変更"
         android:textSize="20sp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_above="@+id/timing"
-        android:layout_toRightOf="@+id/timing"
-        android:layout_toEndOf="@+id/timing" />
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_alignBaseline="@+id/fiveTime"
+        android:layout_alignBottom="@+id/fiveTime"
+        android:layout_toRightOf="@+id/textView1"
+        android:layout_toEndOf="@+id/textView1" />
 
 
 
