@@ -5,21 +5,27 @@ import io.realm.RealmObject;
 public class SubjectInfoItems extends RealmObject {
 
     private Integer subjectId;
-    private Integer dayOfweekId;
     private String subjectName;
+    private int attendNum;
     private int absentNum;
     private int lateNum;
+    private Integer classId;
+    private Integer dayOfWeekId;
 
     public Integer getSubjectId() {
         return subjectId;
     }
 
-    public Integer getDayOfweekId() {
-        return dayOfweekId;
+    public Integer getDayOfWeekId() {
+        return dayOfWeekId;
     }
 
     public String getSubjectName() {
         return subjectName;
+    }
+
+    public int getAttendNum() {
+        return attendNum;
     }
 
     public int getAbsentNum() {
@@ -34,12 +40,24 @@ public class SubjectInfoItems extends RealmObject {
         this.subjectId = subjectId;
     }
 
-    public void setDayOfweekId(Integer dayOfweekId) {
-        this.dayOfweekId = dayOfweekId;
+    public int getClassId() {
+        return classId;
+    }
+
+    public void setDayOfWeekId(Integer dayOfWeekId) {
+        this.dayOfWeekId = dayOfWeekId;
+    }
+
+    public void setClassId(int classId) {
+        this.classId = classId;
     }
 
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
+    }
+
+    public void setAttendNum(int attendNum) {
+        this.attendNum = attendNum;
     }
 
     public void setAbsentNum(int absentNum) {

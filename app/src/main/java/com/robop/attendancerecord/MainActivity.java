@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,8 +47,6 @@ public class MainActivity extends AppCompatActivity  {
 
     final int INTENT_REQUEST_CODE = 1;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,14 +78,14 @@ public class MainActivity extends AppCompatActivity  {
 
     private void initEndTimeArray(){
         endTimeHourGroup = new int[5];
-        endTimeHourGroup[0] = 01;
+        endTimeHourGroup[0] = 10;
         endTimeHourGroup[1] = 12;
         endTimeHourGroup[2] = 15;
         endTimeHourGroup[3] = 17;
         endTimeHourGroup[4] = 18;
 
         endTimeMinuteGroup = new int[5];
-        endTimeMinuteGroup[0] = 20;
+        endTimeMinuteGroup[0] = 50;
         endTimeMinuteGroup[1] = 40;
         endTimeMinuteGroup[2] = 10;
         endTimeMinuteGroup[3] = 00;
@@ -98,6 +97,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onRestart();
 
         setAlarmTime();
+        //reloadFragmentData();
     }
 
     @Override
@@ -124,6 +124,17 @@ public class MainActivity extends AppCompatActivity  {
             if (resultCode == RESULT_OK){
                 endTimeHourGroup = data.getIntArrayExtra("EndTimeHour");
                 endTimeMinuteGroup = data.getIntArrayExtra("EndTimeMinute");
+            }
+        }
+    }
+
+    private void reloadFragmentData(){
+
+        for (int i=0; i<6; i++){
+            Fragment fragment = customFragmentAdapter.getItem(i);
+
+            if (fragment != null && fragment instanceof ScheduleFragment){
+                ((ScheduleFragment)fragment).reloadList();
             }
         }
     }
@@ -157,7 +168,7 @@ public class MainActivity extends AppCompatActivity  {
                 Log.i("alarm", calendarTarget.getTime().toString());
 
                 Intent intent = new Intent(getApplicationContext(), AlarmNotification.class);
-                intent.putExtra("AlarmRequestCode", i);
+                intent.putExtra("ClassNumCode", i);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), i, intent, 0);
 
@@ -169,8 +180,4 @@ public class MainActivity extends AppCompatActivity  {
             //TODO 5限まで比較が終わったら明日の1限に設定する
         }
     }
-
-
-
-
 }
