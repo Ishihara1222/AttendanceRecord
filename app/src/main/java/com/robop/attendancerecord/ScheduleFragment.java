@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,9 +62,10 @@ public class ScheduleFragment extends Fragment {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 //TODO 教科名を変更できるダイアログの表示
-
+                DialogFragment newFragment = new AlertDialogFragment(position);
+                newFragment.show(getFragmentManager(), "missiles");
             }
         });
     }
@@ -97,19 +99,6 @@ public class ScheduleFragment extends Fragment {
                 savedListItem("未設定", 0, 0, 0, i, 0);
             }
         }
-
-        CustomScheduleListAdapter adapter = new CustomScheduleListAdapter(this.getActivity(), R.layout.schedule_list_item, listItems);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                DialogFragment newFragment = new AlertDialogFragment();
-                newFragment.show(getFragmentManager(), "missiles");
-            }
-        });
-
-
     }
 
 

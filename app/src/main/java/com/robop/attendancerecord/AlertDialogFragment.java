@@ -16,34 +16,36 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import io.realm.Realm;
+
 public class AlertDialogFragment extends DialogFragment {
 
-    View inputView;
-    //Dialog内のTextView
-    EditText subjectName;
-    //Dialog
-    AlertDialog alertDlg;
-    private Dialog dialog;
+    Realm realm;
+    private int position;
+    View view;
 
-    //インスタンスの生成
-    public static AlertDialogFragment newInstance(){
-        AlertDialogFragment fragment = new AlertDialogFragment();
-        return fragment;
+    public AlertDialogFragment(int clickPosition){
+        this.position = clickPosition;
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Realm.init(getActivity());
+        realm = Realm.getDefaultInstance();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         //xmlと紐づけ
         LayoutInflater inflater = getActivity().getLayoutInflater();
+        view = inflater.inflate(R.layout.activity_subjectdialog,null);
+
         builder.setView(inflater.inflate(R.layout.activity_subjectdialog, null))
 
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // sign in the user ...
+                        setSubjectName(realm);
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -55,6 +57,18 @@ public class AlertDialogFragment extends DialogFragment {
 
     }
 
+    private void setSubjectName(Realm realm){
+        EditText editText = (EditText)view.findViewById(R.id.customDlg_name);
+        final String subjectName = editText.getText().toString();
 
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                SubjectInfoItems subjectInfoItems = realm.where(SubjectInfoItems.class).equalTo("classId", position).findFirst();
+
+                //subjectInfoItems.setSubjectName(subjectName);
+            }
+        });
+    }
 
 }
