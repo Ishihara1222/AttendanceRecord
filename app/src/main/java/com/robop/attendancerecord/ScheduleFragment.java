@@ -1,7 +1,10 @@
 package com.robop.attendancerecord;
 
+import android.app.FragmentManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +17,20 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
+
+
 public class ScheduleFragment extends Fragment {
+
+    private DialogFragment dialogFragment;
+    private FragmentManager flagmentManager;
 
     ArrayList<CustomScheduleInfoListItem> listItems;
 
     ArrayList<String> subjectNameList = null;
     ArrayList<Integer> absentNumList = null;
     ArrayList<Integer> lateNumList = null;
+
+
 
     Realm realm;
 
@@ -77,10 +87,13 @@ public class ScheduleFragment extends Fragment {
         scheduleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                DialogFragment newFragment = new AlertDialogFragment();
+                newFragment.show(getFragmentManager(), "missiles");
             }
+
         });
     }
+
 
     private void savedInitListitem(){
         realm = Realm.getDefaultInstance();
