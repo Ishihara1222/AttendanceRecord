@@ -1,5 +1,7 @@
 package com.robop.attendancerecord;
 
+import android.app.FragmentManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +16,9 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class ScheduleFragment extends Fragment {
+
+    private DialogFragment dialogFragment;
+    private FragmentManager flagmentManager;
 
     ArrayList<CustomScheduleInfoListItem> listItems;
 
@@ -79,8 +84,8 @@ public class ScheduleFragment extends Fragment {
                 CustomScheduleInfoListItem item = new CustomScheduleInfoListItem(subjectNameList.get(i), absentNumList.get(i), lateNumList.get(i));
                 listItems.add(item);
             }
-        }else{
-            for (int i=0; i<5; i++){
+        }else {
+            for (int i = 0; i < 5; i++) {
                 subjectNameList.add("未設定");
                 absentNumList.add(0);
                 lateNumList.add(0);
@@ -89,10 +94,24 @@ public class ScheduleFragment extends Fragment {
                 listItems.add(item);
 
                 //realmデータベースに初期値を書き込み
-                savedListItem("未設定",0, 0, 0, i, 0);
+                savedListItem("未設定", 0, 0, 0, i, 0);
             }
         }
+
+        CustomScheduleListAdapter adapter = new CustomScheduleListAdapter(this.getActivity(), R.layout.schedule_list_item, listItems);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                DialogFragment newFragment = new AlertDialogFragment();
+                newFragment.show(getFragmentManager(), "missiles");
+            }
+        });
+
+
     }
+
 
     private void savedListItem(String subjectName, int attendNum, int absentNum, int lateNum, int classNum, int dayOfWeekNum){
 
