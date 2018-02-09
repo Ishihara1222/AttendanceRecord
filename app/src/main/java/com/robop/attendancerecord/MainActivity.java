@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
 
         setAlarmTime();
+        //reloadFragmentData();
     }
 
     @Override
@@ -112,6 +114,17 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK){
                 endTimeHourGroup = data.getIntArrayExtra("EndTimeHour");
                 endTimeMinuteGroup = data.getIntArrayExtra("EndTimeMinute");
+            }
+        }
+    }
+
+    private void reloadFragmentData(){
+
+        for (int i=0; i<6; i++){
+            Fragment fragment = customFragmentAdapter.getItem(i);
+
+            if (fragment != null && fragment instanceof ScheduleFragment){
+                ((ScheduleFragment)fragment).reloadList();
             }
         }
     }
@@ -145,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("alarm", calendarTarget.getTime().toString());
 
                 Intent intent = new Intent(getApplicationContext(), AlarmNotification.class);
-                intent.putExtra("AlarmRequestCode", i);
+                intent.putExtra("ClassNumCode", i);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), i, intent, 0);
 
