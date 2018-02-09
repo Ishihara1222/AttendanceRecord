@@ -11,7 +11,7 @@ public class AlarmNotification extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        int requestCode = intent.getIntExtra("AlarmRequestCode", 0);
+        int requestCode = intent.getIntExtra("AlarmRequestCode", -1);
         final int ATTEND = 0;
         final int ABSENT = 1;
         final int LATE = 2;
@@ -33,7 +33,7 @@ public class AlarmNotification extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentTitle("出席しましたか?");
+        builder.setContentTitle(requestCode+1 + "限の授業に出席しましたか?");
         builder.addAction(0, "出席", actionAttendPendingIntent);
         builder.addAction(0, "欠席", actionAbsentPendingIntent);
         builder.addAction(0, "遅刻", actionLatePendingIntent);
