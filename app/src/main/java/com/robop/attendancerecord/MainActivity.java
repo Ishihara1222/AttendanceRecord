@@ -1,37 +1,25 @@
 package com.robop.attendancerecord;
 
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 
-import android.app.DialogFragment;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TimeZone;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -42,10 +30,10 @@ public class MainActivity extends AppCompatActivity  {
 
     CustomFragmentPagerAdapter customFragmentAdapter;
 
-    int[] endTimeHourGroup;
-    int[] endTimeMinuteGroup;
+    int[] endTimeHourGroup;     //通知時間の時間部分をまとめた配列
+    int[] endTimeMinuteGroup;   //通知時間の分部分をまとめた配列
 
-    final int INTENT_REQUEST_CODE = 1;
+    final int INTENT_REQUEST_CODE = 1;  //通知設定(EndTimeActivity)へStartActivityForResultする際のCODE
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +42,18 @@ public class MainActivity extends AppCompatActivity  {
 
         Realm.init(this);
 
-        String[] tabNames = getResources().getStringArray(R.array.tabNames);
+        String[] tabNames = getResources().getStringArray(R.array.tabNames);    //TabLayoutに表示する文字を管理する配列
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
-        tabLayout = (TabLayout)findViewById(R.id.tabs);
-        viewPager = (ViewPager)findViewById(R.id.pager);
+        toolbar = findViewById(R.id.toolbar);
+        tabLayout = findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.pager);
 
         toolbar.setTitle("曜日");
         setSupportActionBar(toolbar);
 
-        initEndTimeArray();
+        initEndTimeArray();     //通知時間管理配列の初期化
 
+        //曜日の数だけFragment生成
         customFragmentAdapter = new CustomFragmentPagerAdapter(getSupportFragmentManager(), tabNames);
         for(int i=0; i<6; i++){
             customFragmentAdapter.addFragment(ScheduleFragment.newInstance());
@@ -73,7 +62,7 @@ public class MainActivity extends AppCompatActivity  {
         viewPager.setAdapter(customFragmentAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        setAlarmTime();
+        setNotificationTime();     //通知設定処理
     }
 
     private void initEndTimeArray(){
@@ -96,8 +85,8 @@ public class MainActivity extends AppCompatActivity  {
     public void onRestart(){
         super.onRestart();
 
-        setAlarmTime();
-        //reloadFragmentData();
+        setNotificationTime();
+        //reloadFragmentData();     //Fragment内のListデータ更新
     }
 
     @Override
@@ -110,7 +99,7 @@ public class MainActivity extends AppCompatActivity  {
     public boolean onOptionsItemSelected(MenuItem item){
 
         switch (item.getItemId()){
-            case R.id.alertSetting:
+            case R.id.alertSetting:     //通知設定画面へ
                 Intent intent = new Intent(this, EndTimeActivity.class);
                 startActivityForResult(intent, INTENT_REQUEST_CODE);
                 break;
@@ -122,6 +111,7 @@ public class MainActivity extends AppCompatActivity  {
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if (requestCode == INTENT_REQUEST_CODE){
             if (resultCode == RESULT_OK){
+                //通知設定時間の数字配列を取得
                 endTimeHourGroup = data.getIntArrayExtra("EndTimeHour");
                 endTimeMinuteGroup = data.getIntArrayExtra("EndTimeMinute");
             }
@@ -139,9 +129,10 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-    private void setAlarmTime(){
+    private void setNotificationTime(){
+        //TODO 授業が無ければ通知は鳴らさない
 
-        int classExistFlag; //授業が無ければアラームは鳴らさない
+        int classExistFlag;
         TimeZone timeZone = TimeZone.getTimeZone("Asia/Tokyo");
 
         //現在時刻取得
@@ -162,7 +153,7 @@ public class MainActivity extends AppCompatActivity  {
             long targetMs = calendarTarget.getTimeInMillis();
             long nowMs = calendarNow.getTimeInMillis();
 
-            //現時刻とターゲット時刻と比較して、ターゲット時刻が未来ならアラーム設定
+            //現時刻とターゲット時刻と比較して、ターゲット時刻が未来なら通知設定
             if(targetMs >= nowMs){
                 Toast.makeText(this, calendarTarget.getTime().toString() + "にアラームが設定されています", Toast.LENGTH_LONG).show();
                 Log.i("alarm", calendarTarget.getTime().toString());
@@ -172,8 +163,10 @@ public class MainActivity extends AppCompatActivity  {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), i, intent, 0);
 
-                AlarmManager alarmmanager = (AlarmManager)getSystemService(ALARM_SERVICE);
-                alarmmanager.set(AlarmManager.RTC_WAKEUP, calendarTarget.getTimeInMillis(), pendingIntent);
+                AlarmManager alarmmanager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
+                if (alarmmanager != null) {
+                    alarmmanager.set(AlarmManager.RTC_WAKEUP, calendarTarget.getTimeInMillis(), pendingIntent);
+                }
 
                 break;
             }
