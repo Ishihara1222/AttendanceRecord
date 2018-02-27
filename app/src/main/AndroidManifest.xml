@@ -21,7 +21,7 @@
         </activity>
 
         <receiver
-            android:name=".AlarmNotification"
+            android:name=".AlarmReceiver"
             android:process=":remote" />
 
         <activity android:name=".AttendanceResultActivity"></activity>

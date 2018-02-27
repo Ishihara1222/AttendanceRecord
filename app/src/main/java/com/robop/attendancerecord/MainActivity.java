@@ -3,6 +3,7 @@ package com.robop.attendancerecord;
 import android.app.AlarmManager;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Set;
 import java.util.TimeZone;
 
 import io.realm.Realm;
@@ -129,7 +131,7 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-    private void setNotificationTime(){
+    public void setNotificationTime(){
         //TODO 授業が無ければ通知は鳴らさない
 
         int classExistFlag;
@@ -139,38 +141,31 @@ public class MainActivity extends AppCompatActivity  {
         Calendar calendarNow = Calendar.getInstance();
         calendarNow.setTimeZone(timeZone);
 
+        //TODO 通知時間の数字の変数化
+        //通知が鳴る時間の設定
+        PendingIntent pendingIntent0 = SetNotificationTime.getPendingIntent(getApplicationContext(),1, "intent0");
+        Calendar calendar0 = SetNotificationTime.getCalendar(10, 50);
 
-        for (int i=0; i<5; i++){
+        PendingIntent pendingIntent1 = SetNotificationTime.getPendingIntent(getApplicationContext(),2, "intent1");
+        Calendar calendar1 = SetNotificationTime.getCalendar(12, 40);
 
-            Calendar calendarTarget = Calendar.getInstance();
-            //通知が鳴る時間の設定
-            calendarTarget.setTimeInMillis(System.currentTimeMillis());
-            calendarTarget.set(Calendar.HOUR_OF_DAY, endTimeHourGroup[i]);
-            calendarTarget.set(Calendar.MINUTE, endTimeMinuteGroup[i]);
-            calendarTarget.set(Calendar.SECOND, 0);
+        PendingIntent pendingIntent2 = SetNotificationTime.getPendingIntent(getApplicationContext(),3, "intent2");
+        Calendar calendar2 = SetNotificationTime.getCalendar(15, 10);
 
-            //ミリ秒取得
-            long targetMs = calendarTarget.getTimeInMillis();
-            long nowMs = calendarNow.getTimeInMillis();
+        PendingIntent pendingIntent3 = SetNotificationTime.getPendingIntent(getApplicationContext(),4, "intent3");
+        Calendar calendar3 = SetNotificationTime.getCalendar(17, 14);
 
-            //現時刻とターゲット時刻と比較して、ターゲット時刻が未来なら通知設定
-            if(targetMs >= nowMs){
-                Toast.makeText(this, calendarTarget.getTime().toString() + "にアラームが設定されています", Toast.LENGTH_LONG).show();
-                Log.i("alarm", calendarTarget.getTime().toString());
+        PendingIntent pendingIntent4 = SetNotificationTime.getPendingIntent(getApplicationContext(),5, "intent4");
+        Calendar calendar4 = SetNotificationTime.getCalendar(17, 16);
 
-                Intent intent = new Intent(getApplicationContext(), AlarmNotification.class);
-                intent.putExtra("ClassNumCode", i);
+        //アラーム設定
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar0.getTimeInMillis(), pendingIntent0);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), pendingIntent1);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), pendingIntent2);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar3.getTimeInMillis(), pendingIntent3);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar4.getTimeInMillis(), pendingIntent4);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), i, intent, 0);
-
-                AlarmManager alarmmanager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
-                if (alarmmanager != null) {
-                    alarmmanager.set(AlarmManager.RTC_WAKEUP, calendarTarget.getTimeInMillis(), pendingIntent);
-                }
-
-                break;
-            }
-            //TODO 5限まで比較が終わったら明日の1限に設定する
-        }
     }
 }
