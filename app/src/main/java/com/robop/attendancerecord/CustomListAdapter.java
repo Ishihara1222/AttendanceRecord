@@ -11,17 +11,17 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CustomScheduleListAdapter extends ArrayAdapter<CustomScheduleInfoListItem> {
+public class CustomListAdapter extends ArrayAdapter<CustomListItem>  {
 
     private int resource;
-    private List<CustomScheduleInfoListItem> scheduleInfoItems;
+    private List<CustomListItem> listItems;
     private LayoutInflater layoutInflater;
 
-    public CustomScheduleListAdapter(@NonNull Context context, @LayoutRes int resource, List<CustomScheduleInfoListItem> scheduleInfoItems) {
-        super(context, resource, scheduleInfoItems);
+    CustomListAdapter(@NonNull Context context, @LayoutRes int resource, List<CustomListItem> listItems) {
+        super(context, resource, listItems);
 
         this.resource = resource;;
-        this.scheduleInfoItems = scheduleInfoItems;
+        this.listItems = listItems;
         this.layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -41,23 +41,22 @@ public class CustomScheduleListAdapter extends ArrayAdapter<CustomScheduleInfoLi
             convertView = this.layoutInflater.inflate(this.resource, null);
             viewHolder = new ViewHolder();
 
-            viewHolder.classNumHolder = (TextView) convertView.findViewById(R.id.classNum);
-            viewHolder.subjectNameHolder = (TextView) convertView.findViewById(R.id.subjectName);
-            viewHolder.absentNumHolder = (TextView) convertView.findViewById(R.id.absentRecord);
-            viewHolder.lateNumHolder = (TextView) convertView.findViewById(R.id.lateRecord);
+            viewHolder.classNumHolder = convertView.findViewById(R.id.classNum);
+            viewHolder.subjectNameHolder =  convertView.findViewById(R.id.subjectName);
+            viewHolder.absentNumHolder = convertView.findViewById(R.id.absentRecord);
+            viewHolder.lateNumHolder = convertView.findViewById(R.id.lateRecord);
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        CustomScheduleInfoListItem item = this.scheduleInfoItems.get(position);
+        CustomListItem listItem = this.listItems.get(position);     //ListView内に表示する情報
 
         viewHolder.classNumHolder.setText(position+1 + "限");
 
-        //Realmの処理はScheduleFragment.javaにある
-        viewHolder.subjectNameHolder.setText("教科名 : " + item.getSubjectName());
-        viewHolder.absentNumHolder.setText("欠席回数 : " + String.valueOf(item.getAbsentNum()) + "回");
-        viewHolder.lateNumHolder.setText("遅刻回数 : " + String.valueOf(item.getLateNum()) + "回");
+        viewHolder.subjectNameHolder.setText("教科名 " + listItem.getSubjectName());
+        viewHolder.absentNumHolder.setText("欠席回数 " + String.valueOf(listItem.getAbsentNum()) + "回");
+        viewHolder.lateNumHolder.setText("遅刻回数 " + String.valueOf(listItem.getLateNum()) + "回");
 
         return convertView;
     }

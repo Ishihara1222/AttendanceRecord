@@ -8,17 +8,15 @@ import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Set;
 import java.util.TimeZone;
 
 import io.realm.Realm;
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity  {
     ViewPager viewPager;
     TabLayout tabLayout;
 
-    CustomFragmentPagerAdapter customFragmentAdapter;
+    CustomFragmentPagerAdapter customFragmentPagerAdapter;
 
     int[] endTimeHourGroup;     //通知時間の時間部分をまとめた配列
     int[] endTimeMinuteGroup;   //通知時間の分部分をまとめた配列
@@ -56,12 +54,9 @@ public class MainActivity extends AppCompatActivity  {
         initEndTimeArray();     //通知時間管理配列の初期化
 
         //曜日の数だけFragment生成
-        customFragmentAdapter = new CustomFragmentPagerAdapter(getSupportFragmentManager(), tabNames);
-        for(int i=0; i<6; i++){
-            customFragmentAdapter.addFragment(ScheduleFragment.newInstance());
-        }
+        customFragmentPagerAdapter = new CustomFragmentPagerAdapter(getSupportFragmentManager(), tabNames);
 
-        viewPager.setAdapter(customFragmentAdapter);
+        viewPager.setAdapter(customFragmentPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
         setNotificationTime();     //通知設定処理
@@ -116,17 +111,6 @@ public class MainActivity extends AppCompatActivity  {
                 //通知設定時間の数字配列を取得
                 endTimeHourGroup = data.getIntArrayExtra("EndTimeHour");
                 endTimeMinuteGroup = data.getIntArrayExtra("EndTimeMinute");
-            }
-        }
-    }
-
-    private void reloadFragmentData(){
-
-        for (int i=0; i<6; i++){
-            Fragment fragment = customFragmentAdapter.getItem(i);
-
-            if (fragment != null && fragment instanceof ScheduleFragment){
-                ((ScheduleFragment)fragment).reloadList();
             }
         }
     }

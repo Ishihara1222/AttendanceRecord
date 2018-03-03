@@ -1,13 +1,14 @@
 package com.robop.attendancerecord;
 
+import java.io.Serializable;
 
-public class CustomScheduleInfoListItem {
+public class CustomListItem implements Serializable{
 
-    private String subjectName;
-    private int absentNum;
-    private int lateNum;
+    private String subjectName; //教科名
+    private int absentNum;  //欠席回数
+    private int lateNum;    //遅刻回数
 
-    public CustomScheduleInfoListItem(String subjectName, int absentNum, int lateNum){
+    public CustomListItem(String subjectName, int absentNum, int lateNum){
         this.subjectName = subjectName;
         this.absentNum = absentNum;
         this.lateNum = lateNum;
@@ -36,4 +37,5 @@ public class CustomScheduleInfoListItem {
     public void setLateNum(int lateNum) {
         this.lateNum = lateNum;
     }
+
 }

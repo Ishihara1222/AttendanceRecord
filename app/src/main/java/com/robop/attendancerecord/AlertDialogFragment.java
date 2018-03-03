@@ -2,19 +2,13 @@ package com.robop.attendancerecord;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import io.realm.Realm;
 
@@ -64,9 +58,9 @@ public class AlertDialogFragment extends DialogFragment {
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                SubjectInfoItems subjectInfoItems = realm.where(SubjectInfoItems.class).equalTo("classId", position).findFirst();
+                SubjectRealmData subjectRealmData = realm.where(SubjectRealmData.class).equalTo("classId", position).findFirst();
 
-                //subjectInfoItems.setSubjectName(subjectName);
+                //subjectRealmData.setSubjectName(subjectName);
             }
         });
     }
