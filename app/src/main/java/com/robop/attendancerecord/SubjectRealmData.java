@@ -36,12 +36,12 @@ public class SubjectRealmData extends RealmObject {
         return lateNum;
     }
 
-    public void setSubjectId(Integer subjectId) {
-        this.subjectId = subjectId;
-    }
-
     public int getListId() {
         return listId;
+    }
+
+    public void setSubjectId(Integer subjectId) {
+        this.subjectId = subjectId;
     }
 
     void setDayOfWeekId(Integer dayOfWeekId) {

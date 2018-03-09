@@ -32,23 +32,23 @@ class GetSubjectData {
                 break;
                 
             case 1: //火曜日
-                query.greaterThanOrEqualTo("listId", 5).and().lessThan("classId", 10);
+                query.greaterThanOrEqualTo("listId", 5).and().lessThan("listId", 10);
                 break;
                 
             case 2: //水曜日
-                query.greaterThanOrEqualTo("listId", 10).and().lessThan("classId", 15);
+                query.greaterThanOrEqualTo("listId", 10).and().lessThan("listId", 15);
                 break;
                 
             case 3: //木曜日
-                query.greaterThanOrEqualTo("listId", 15).and().lessThan("classId", 20);
+                query.greaterThanOrEqualTo("listId", 15).and().lessThan("listId", 20);
                 break;
                 
             case 4: //金曜日
-                query.greaterThanOrEqualTo("listId", 20).and().lessThan("classId", 25);
+                query.greaterThanOrEqualTo("listId", 20).and().lessThan("listId", 25);
                 break;
                 
             case 5: //土曜日
-                query.greaterThanOrEqualTo("listId", 25).and().lessThan("classId", 30);
+                query.greaterThanOrEqualTo("listId", 25).and().lessThan("listId", 30);
                 break;
         }
 
