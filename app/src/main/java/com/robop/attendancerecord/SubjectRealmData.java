@@ -9,7 +9,7 @@ public class SubjectRealmData extends RealmObject {
     private int attendNum;  //出席回数
     private int absentNum;  //欠席回数
     private int lateNum;    //遅刻回数
-    private Integer listId;    //月曜1限 : 0 〜 土曜5限 : 29としてListViewの行の数と同期
+    private Integer classId;    //月曜1限 : 0 〜 土曜5限 : 29としてListViewの行の数と同期
     private Integer dayOfWeekId;    //月曜 : 0 〜 土曜 : 5  として曜日の数と同期
 
     public Integer getSubjectId() {
@@ -36,8 +36,8 @@ public class SubjectRealmData extends RealmObject {
         return lateNum;
     }
 
-    public int getListId() {
-        return listId;
+    public int getClassId() {
+        return classId;
     }
 
     public void setSubjectId(Integer subjectId) {
@@ -48,8 +48,8 @@ public class SubjectRealmData extends RealmObject {
         this.dayOfWeekId = dayOfWeekId;
     }
 
-    void setListId(int listId) {
-        this.listId = listId;
+    void setClassId(int classId) {
+        this.classId = classId;
     }
 
     void setSubjectName(String subjectName) {

@@ -13,13 +13,13 @@ class SetNotificationTime {
 
     private Context context;
 
-    public SetNotificationTime(Context context){
+    SetNotificationTime(Context context){
         this.context = context;
     }
 
     private PendingIntent getPendingIntent(int classNumCode, String intentTypeStr){
         Intent intent = new Intent(context, AlarmReceiver.class);
-        intent.putExtra("ClassNumCode", classNumCode);
+        intent.putExtra("ClassNumCode", classNumCode + 1);
         intent.setType(intentTypeStr);
 
         return PendingIntent.getBroadcast(context, classNumCode, intent, 0);
@@ -53,12 +53,15 @@ class SetNotificationTime {
         //アラーム設定
         //TODO 現在時刻を無視して1番目から通知が来る
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        assert alarmManager != null;
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[0].getTimeInMillis(), pendingIntents[0]);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[1].getTimeInMillis(), pendingIntents[1]);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[2].getTimeInMillis(), pendingIntents[2]);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[3].getTimeInMillis(), pendingIntents[3]);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[4].getTimeInMillis(), pendingIntents[4]);
+        if (alarmManager != null){
+
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[0].getTimeInMillis(), pendingIntents[0]);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[1].getTimeInMillis(), pendingIntents[1]);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[2].getTimeInMillis(), pendingIntents[2]);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[3].getTimeInMillis(), pendingIntents[3]);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[4].getTimeInMillis(), pendingIntents[4]);
+
+        }
 
     }
 

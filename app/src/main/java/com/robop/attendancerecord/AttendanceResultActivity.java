@@ -18,10 +18,12 @@ public class AttendanceResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Log.i("AttendResult", String.valueOf(intent.getIntExtra("AttendResult", -1)));
+        Log.i("ClassNumResult", String.valueOf(intent.getIntExtra("ClassNumResult", -1)));
 
         final int attendResultCode = intent.getIntExtra("AttendResult", -1);  //0 : 出席, 1 : 欠席, 2 : 遅刻
-        final int attendClassNum = intent.getIntExtra("ClassNumCode", -1);
+        final int attendClassNum = intent.getIntExtra("ClassNumResult", -1);  //授業時限数の受取
 
+        /*
         Realm.init(getApplicationContext());
         realm = Realm.getDefaultInstance();
 
@@ -51,7 +53,7 @@ public class AttendanceResultActivity extends AppCompatActivity {
                         break;
                 }
             }
-        });
+        });*/
 
         /*
         if(results.size() > 0){

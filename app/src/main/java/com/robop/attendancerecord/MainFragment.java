@@ -42,7 +42,7 @@ public class MainFragment extends Fragment implements RealmChangeListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         listItems = new ArrayList<>();
         subjectNameList = new ArrayList<>();
         attendNumList = new ArrayList<>();
@@ -61,7 +61,7 @@ public class MainFragment extends Fragment implements RealmChangeListener {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
         listView = view.findViewById(R.id.listView);
@@ -94,7 +94,7 @@ public class MainFragment extends Fragment implements RealmChangeListener {
         items.setAttendNum(attendNum);
         items.setAbsentNum(absentNum);
         items.setLateNum(lateNum);
-        items.setListId(classNum);
+        items.setClassId(classNum);
         items.setDayOfWeekId(dayOfWeekNum);
 
         realm.commitTransaction();

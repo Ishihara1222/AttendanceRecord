@@ -148,7 +148,7 @@ public class SettingClassTimeActivity extends AppCompatActivity implements View.
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 
         //アラーム削除
-        for (int requestCode = 0; requestCode < 5; requestCode++){
+        for (int requestCode = 1; requestCode <= 5; requestCode++){
             Intent intent = new Intent(SettingClassTimeActivity.this, AlarmReceiver.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(SettingClassTimeActivity.this, requestCode, intent, 0);
 
