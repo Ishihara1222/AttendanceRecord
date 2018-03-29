@@ -6,7 +6,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -25,12 +24,8 @@ public class MainActivity extends AppCompatActivity  {
 
         String[] tabNames = getResources().getStringArray(R.array.tabNames);    //TabLayoutに表示する文字を管理する配列
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
         TabLayout tabLayout = findViewById(R.id.tabs);
         ViewPager viewPager = findViewById(R.id.pager);
-
-        toolbar.setTitle("AttendanceRecord");
-        setSupportActionBar(toolbar);
 
         //曜日の数だけFragment生成
         CustomFragmentPagerAdapter customFragmentPagerAdapter = new CustomFragmentPagerAdapter(getSupportFragmentManager(), tabNames);
@@ -50,7 +45,8 @@ public class MainActivity extends AppCompatActivity  {
         calendars[2] = setNotificationTime.getCalendar(15, 10);
         calendars[3] = setNotificationTime.getCalendar(17, 0);
         calendars[4] = setNotificationTime.getCalendar(18, 50);
-        setNotificationTime.setNotification(calendars);     //通知設定処理
+
+        //setNotificationTime.setNotification(calendars);     //通知設定処理
     }
 
     @Override

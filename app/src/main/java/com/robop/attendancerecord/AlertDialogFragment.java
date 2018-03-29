@@ -1,45 +1,57 @@
 package com.robop.attendancerecord;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
+
 import android.view.View;
 import android.widget.EditText;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class AlertDialogFragment extends DialogFragment {
 
     Realm realm;
     private int position;
     View view;
+    Activity activity;
 
     public AlertDialogFragment(int clickPosition){
         this.position = clickPosition;
     }
 
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        activity = (Activity)context;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Realm.init(getActivity());
-        realm = Realm.getDefaultInstance();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+
+        realm = Realm.getInstance(realmConfiguration);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         //xmlと紐づけ
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        view = inflater.inflate(R.layout.activity_subjectdialog,null);
+        view = activity.getLayoutInflater().inflate(R.layout.activity_subjectdialog,null);
 
-        builder.setView(inflater.inflate(R.layout.activity_subjectdialog, null))
-
+        builder.setView(view)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        setSubjectName(realm);
+                        //setSubjectName(realm);
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -52,12 +64,12 @@ public class AlertDialogFragment extends DialogFragment {
     }
 
     private void setSubjectName(Realm realm){
-        EditText editText = (EditText)view.findViewById(R.id.customDlg_name);
+        EditText editText = view.findViewById(R.id.customDlg_name);
         final String subjectName = editText.getText().toString();
 
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
-            public void execute(Realm realm) {
+            public void execute(@NonNull Realm realm) {
                 SubjectRealmData subjectRealmData = realm.where(SubjectRealmData.class).equalTo("classId", position).findFirst();
 
                 //subjectRealmData.setSubjectName(subjectName);

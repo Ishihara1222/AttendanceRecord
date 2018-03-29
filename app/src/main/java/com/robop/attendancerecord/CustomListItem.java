@@ -1,14 +1,12 @@
 package com.robop.attendancerecord;
 
-import java.io.Serializable;
-
-public class CustomListItem implements Serializable{
+public class CustomListItem{
 
     private String subjectName; //教科名
     private int absentNum;  //欠席回数
     private int lateNum;    //遅刻回数
 
-    public CustomListItem(String subjectName, int absentNum, int lateNum){
+    CustomListItem(String subjectName, int absentNum, int lateNum){
         this.subjectName = subjectName;
         this.absentNum = absentNum;
         this.lateNum = lateNum;

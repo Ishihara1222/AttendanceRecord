@@ -1,7 +1,8 @@
 package com.robop.attendancerecord;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,9 +14,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
 
-public class MainFragment extends Fragment implements RealmChangeListener {
+public class MainFragment extends Fragment {
 
     ArrayList<CustomListItem> listItems;    //ListViewのAdapterに入れる情報
 
@@ -26,23 +26,28 @@ public class MainFragment extends Fragment implements RealmChangeListener {
     ArrayList<Integer> lateNumList = null;      //遅刻数
 
     ListView listView;
-    private CustomListAdapter adapter;
 
-    int currentPageNum = 0; //現在のfragmentのページ数
+    Activity activity;
 
     Realm realm;
 
-    public static MainFragment newInstance(ArrayList<CustomListItem> listItems, int position){
+    public static MainFragment newInstance( int position){
         MainFragment mainFragment = new MainFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("currentListItem", listItems);
         bundle.putInt("currentViewPage", position);
         mainFragment.setArguments(bundle);
         return mainFragment;
     }
 
     @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        activity = (Activity)context;
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+
         listItems = new ArrayList<>();
         subjectNameList = new ArrayList<>();
         attendNumList = new ArrayList<>();
@@ -50,12 +55,12 @@ public class MainFragment extends Fragment implements RealmChangeListener {
         lateNumList = new ArrayList<>();
 
         Bundle bundle = getArguments();
-        listItems = (ArrayList<CustomListItem>) bundle.getSerializable("currentListItem");
-        currentPageNum = bundle.getInt("currentViewPage");
+        if (bundle != null){
+            int currentPageNum = bundle.getInt("currentViewPage");
 
-        Realm.init(getActivity());
-        realm = Realm.getDefaultInstance();
-        realm.addChangeListener(this);
+            GetSubjectData getSubjectData = new GetSubjectData();
+            listItems = getSubjectData.getSubjectDataList(currentPageNum);
+        }
 
         return inflater.inflate(R.layout.fragment_main, container, false);
     }
@@ -66,22 +71,22 @@ public class MainFragment extends Fragment implements RealmChangeListener {
 
         listView = view.findViewById(R.id.listView);
 
-        adapter = new CustomListAdapter(this.getActivity(), R.layout.list_item, listItems);
+        CustomListAdapter adapter = new CustomListAdapter(activity.getApplicationContext(), R.layout.list_item, listItems);
         listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                DialogFragment newFragment = new AlertDialogFragment(position);
-                newFragment.show(getFragmentManager(), "missiles");
+                AlertDialogFragment newFragment = new AlertDialogFragment(position);
+                newFragment.show(activity.getFragmentManager(), "missiles");
             }
         });
     }
 
     @Override
     public void onDestroyView(){
-        realm.close();
+        //realm.close();
         super.onDestroyView();
     }
 
@@ -100,14 +105,4 @@ public class MainFragment extends Fragment implements RealmChangeListener {
         realm.commitTransaction();
     }
 
-    //Realm情報が変更されたときに呼ばれる
-    @Override
-    public void onChange(@NonNull Object o) {
-        GetSubjectData getSubjectData = new GetSubjectData();
-
-        //新しいlistItems情報でAdapterを更新
-        adapter = new CustomListAdapter(this.getActivity(), R.layout.list_item, getSubjectData.getSubjectDataList(currentPageNum));
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
 }

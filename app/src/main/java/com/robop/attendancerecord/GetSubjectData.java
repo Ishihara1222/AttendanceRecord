@@ -3,6 +3,7 @@ package com.robop.attendancerecord;
 import java.util.ArrayList;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
@@ -11,7 +12,11 @@ class GetSubjectData {
     private Realm realm;
 
     GetSubjectData() {
-        realm = Realm.getDefaultInstance();
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+
+        realm = Realm.getInstance(realmConfiguration);
     }
 
     //MainFragmentのListViewに表示するためのlistItemsを返すメソッド
@@ -28,27 +33,27 @@ class GetSubjectData {
                 
         switch (currentPage){
             case 0: //月曜日
-                query.lessThan("listId", 5);
+                query.lessThan("classId", 5);
                 break;
                 
             case 1: //火曜日
-                query.greaterThanOrEqualTo("listId", 5).and().lessThan("listId", 10);
+                query.greaterThanOrEqualTo("classId", 5).and().lessThan("classId", 10);
                 break;
                 
             case 2: //水曜日
-                query.greaterThanOrEqualTo("listId", 10).and().lessThan("listId", 15);
+                query.greaterThanOrEqualTo("classId", 10).and().lessThan("classId", 15);
                 break;
                 
             case 3: //木曜日
-                query.greaterThanOrEqualTo("listId", 15).and().lessThan("listId", 20);
+                query.greaterThanOrEqualTo("classId", 15).and().lessThan("classId", 20);
                 break;
                 
             case 4: //金曜日
-                query.greaterThanOrEqualTo("listId", 20).and().lessThan("listId", 25);
+                query.greaterThanOrEqualTo("classId", 20).and().lessThan("classId", 25);
                 break;
                 
             case 5: //土曜日
-                query.greaterThanOrEqualTo("listId", 25).and().lessThan("listId", 30);
+                query.greaterThanOrEqualTo("classId", 25).and().lessThan("classId", 30);
                 break;
         }
 
