@@ -36,17 +36,14 @@ public class MainActivity extends AppCompatActivity  {
         SetNotificationTime setNotificationTime = new SetNotificationTime(getApplicationContext());
 
         //TODO アプリを開くたび初期値設定されてしまうので値保持処理が必要
-        Calendar[] calendars = new Calendar[5];
-        for (int i=0; i<calendars.length; i++){
-            calendars[i] = Calendar.getInstance();
-        }
-        calendars[0] = setNotificationTime.getCalendar(10, 50);
-        calendars[1] = setNotificationTime.getCalendar(12, 40);
-        calendars[2] = setNotificationTime.getCalendar(15, 10);
-        calendars[3] = setNotificationTime.getCalendar(17, 0);
-        calendars[4] = setNotificationTime.getCalendar(18, 50);
+        Long[] alarmTimes = new Long[5];
+        alarmTimes[0] = setNotificationTime.getAlarmTime(10, 50);
+        alarmTimes[1] = setNotificationTime.getAlarmTime(12, 40);
+        alarmTimes[2] = setNotificationTime.getAlarmTime(15, 10);
+        alarmTimes[3] = setNotificationTime.getAlarmTime(17, 0);
+        alarmTimes[4] = setNotificationTime.getAlarmTime(18, 50);
 
-        //setNotificationTime.setNotification(calendars);     //通知設定処理
+        setNotificationTime.setNotification(alarmTimes);     //通知設定処理
     }
 
     @Override

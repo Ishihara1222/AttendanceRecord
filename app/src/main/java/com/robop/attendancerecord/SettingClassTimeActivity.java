@@ -14,12 +14,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.util.Calendar;
-
 
 public class SettingClassTimeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Calendar[] calendars;
+    Long[] alarmTimes;
     SetNotificationTime setNotificationTime;
 
     @Override
@@ -43,12 +41,12 @@ public class SettingClassTimeActivity extends AppCompatActivity implements View.
         setNotificationTime = new SetNotificationTime(getApplicationContext());
 
         //TODO 値保持処理
-        calendars = new Calendar[5];
-        calendars[0] = setNotificationTime.getCalendar(10, 50);
-        calendars[1] = setNotificationTime.getCalendar(12, 40);
-        calendars[2] = setNotificationTime.getCalendar(15, 10);
-        calendars[3] = setNotificationTime.getCalendar(17, 0);
-        calendars[4] = setNotificationTime.getCalendar(18, 50);
+        alarmTimes = new Long[5];
+        alarmTimes[0] = setNotificationTime.getAlarmTime(10, 50);
+        alarmTimes[1] = setNotificationTime.getAlarmTime(12, 40);
+        alarmTimes[2] = setNotificationTime.getAlarmTime(15, 10);
+        alarmTimes[3] = setNotificationTime.getAlarmTime(17, 0);
+        alarmTimes[4] = setNotificationTime.getAlarmTime(18, 50);
     }
 
     @Override
@@ -108,31 +106,31 @@ public class SettingClassTimeActivity extends AppCompatActivity implements View.
                     case R.id.class1Time:
                         //class1Hour = Integer.valueOf(String.format("%02d",hourOfDay));
                         //class1Minute = Integer.valueOf(String.format("%02d", minute));
-                        calendars[0] = setNotificationTime.getCalendar(hourOfDay, minute);
+                        alarmTimes[0] = setNotificationTime.getAlarmTime(hourOfDay, minute);
                         break;
 
                     case R.id.class2Time:
                         //class2Hour = Integer.valueOf(String.format("%02d",hourOfDay));
                         //class2Minute = Integer.valueOf(String.format("%02d", minute));
-                        calendars[1] = setNotificationTime.getCalendar(hourOfDay, minute);
+                        alarmTimes[1] = setNotificationTime.getAlarmTime(hourOfDay, minute);
                         break;
 
                     case R.id.class3Time:
                         //class3Hour = Integer.valueOf(String.format("%02d",hourOfDay));
                         //class3Minute = Integer.valueOf(String.format("%02d", minute));
-                        calendars[2] = setNotificationTime.getCalendar(hourOfDay, minute);
+                        alarmTimes[2] = setNotificationTime.getAlarmTime(hourOfDay, minute);
                         break;
 
                     case R.id.class4Time:
                         //class4Hour = Integer.valueOf(String.format("%02d",hourOfDay));
                         //class4Minute = Integer.valueOf(String.format("%02d", minute));
-                        calendars[3] = setNotificationTime.getCalendar(hourOfDay, minute);
+                        alarmTimes[3] = setNotificationTime.getAlarmTime(hourOfDay, minute);
                         break;
 
                     case R.id.class5Time:
                         //class5Hour = Integer.valueOf(String.format("%02d",hourOfDay));
                         //class5Minute = Integer.valueOf(String.format("%02d", minute));
-                        calendars[4] = setNotificationTime.getCalendar(hourOfDay, minute);
+                        alarmTimes[4] = setNotificationTime.getAlarmTime(hourOfDay, minute);
                         break;
                 }
 
@@ -142,7 +140,6 @@ public class SettingClassTimeActivity extends AppCompatActivity implements View.
         }, 0, 0, true).show();
     }
 
-    //TODO 変更前アラームの削除と再設定
     private void reloadNotificationTime(){
 
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
@@ -157,7 +154,7 @@ public class SettingClassTimeActivity extends AppCompatActivity implements View.
             alarmManager.cancel(pendingIntent);
         }
 
-        setNotificationTime.setNotification(calendars);
+        setNotificationTime.setNotification(alarmTimes);
 
     }
 }

@@ -1,12 +1,15 @@
 package com.robop.attendancerecord;
 
 import android.app.AlarmManager;
-import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 class SetNotificationTime {
@@ -25,24 +28,39 @@ class SetNotificationTime {
         return PendingIntent.getBroadcast(context, classNumCode, intent, 0);
     }
 
-    Calendar getCalendar(int h, int min){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, h);
-        calendar.set(Calendar.MINUTE, min);
-        calendar.set(Calendar.SECOND, 0);
+    Long getAlarmTime(int h, int min){
 
-        return calendar;
-    }
-
-    void setNotification(Calendar[] calendars){
-        //TODO 授業が無ければ通知は鳴らさない
-
-        int classExistFlag;
         TimeZone timeZone = TimeZone.getTimeZone("Asia/Tokyo");
 
         //現在時刻取得
         Calendar calendarNow = Calendar.getInstance();
         calendarNow.setTimeZone(timeZone);
+        //Log.d("nowTime", String.valueOf(calendarNow.get(Calendar.MONTH) + 1) + "月" + String.valueOf(calendarNow.get(Calendar.DAY_OF_MONTH)) + "日" + String.valueOf(calendarNow.get(Calendar.HOUR_OF_DAY)) + "時" + String.valueOf(calendarNow.get(Calendar.MINUTE)) + "分");
+
+        Calendar calendarAlarm = Calendar.getInstance();
+        calendarAlarm.set(Calendar.MONTH, calendarNow.get(Calendar.MONTH));
+        calendarAlarm.set(Calendar.DAY_OF_MONTH, calendarNow.get(Calendar.DAY_OF_MONTH));
+        calendarAlarm.set(Calendar.HOUR_OF_DAY, h);
+        calendarAlarm.set(Calendar.MINUTE, min);
+        calendarAlarm.set(Calendar.SECOND, 0);
+
+        //現在時刻を過ぎているかどうか確認
+        if (calendarAlarm.compareTo(calendarNow) < 0){
+            Date date = new Date(calendarAlarm.getTimeInMillis() + 24 * 60 * 60 * 1000);
+            DateFormat dateFormat = new SimpleDateFormat("MM月dd日 HH時mm分");
+            Log.d("setAlarmTime", dateFormat.format(date));
+            return calendarAlarm.getTimeInMillis() + 24 * 60 * 60 *1000;
+        }else{
+            Log.d("setAlarmTime", String.valueOf(calendarAlarm.get(Calendar.MONTH) + 1) + "月" + String.valueOf(calendarAlarm.get(Calendar.DAY_OF_MONTH)) + "日" + String.valueOf(calendarAlarm.get(Calendar.HOUR_OF_DAY)) + "時" + String.valueOf(calendarAlarm.get(Calendar.MINUTE)) + "分");
+            return calendarAlarm.getTimeInMillis();
+        }
+
+    }
+
+    void setNotification(Long[] alarmTimes){
+        //TODO 授業が無ければ通知は鳴らさない
+
+        int classExistFlag;
 
         //通知が鳴る時間の設定
         PendingIntent[] pendingIntents = new PendingIntent[5];
@@ -51,15 +69,12 @@ class SetNotificationTime {
         }
 
         //アラーム設定
-        //TODO 現在時刻を無視して1番目から通知が来る
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null){
 
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[0].getTimeInMillis(), pendingIntents[0]);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[1].getTimeInMillis(), pendingIntents[1]);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[2].getTimeInMillis(), pendingIntents[2]);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[3].getTimeInMillis(), pendingIntents[3]);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendars[4].getTimeInMillis(), pendingIntents[4]);
+            for (int i=0; i<alarmTimes.length; i++){
+                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTimes[i], pendingIntents[i]);
+            }
 
         }
 
