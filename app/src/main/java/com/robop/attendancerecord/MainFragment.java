@@ -13,8 +13,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import io.realm.Realm;
-
 public class MainFragment extends Fragment {
 
     ArrayList<CustomListItem> listItems;    //ListViewのAdapterに入れる情報
@@ -28,8 +26,6 @@ public class MainFragment extends Fragment {
     ListView listView;
 
     Activity activity;
-
-    Realm realm;
 
     public static MainFragment newInstance( int position){
         MainFragment mainFragment = new MainFragment();
@@ -58,7 +54,7 @@ public class MainFragment extends Fragment {
         if (bundle != null){
             int currentPageNum = bundle.getInt("currentViewPage");
 
-            GetSubjectData getSubjectData = new GetSubjectData();
+            GetSubjectData getSubjectData = new GetSubjectData(getContext());
             listItems = getSubjectData.getSubjectDataList(currentPageNum);
         }
 
@@ -86,23 +82,9 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onDestroyView(){
-        //realm.close();
         super.onDestroyView();
     }
 
-    private void savedListItem(String subjectName, int attendNum, int absentNum, int lateNum, int classNum, int dayOfWeekNum){
-
-        realm.beginTransaction();
-        SubjectRealmData items = realm.createObject(SubjectRealmData.class);
-
-        items.setSubjectName(subjectName);
-        items.setAttendNum(attendNum);
-        items.setAbsentNum(absentNum);
-        items.setLateNum(lateNum);
-        items.setClassId(classNum);
-        items.setDayOfWeekId(dayOfWeekNum);
-
-        realm.commitTransaction();
-    }
+    //TODO 画面に戻ってきたときのデータ更新
 
 }

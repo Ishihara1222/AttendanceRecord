@@ -1,5 +1,6 @@
 package com.robop.attendancerecord;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -22,12 +23,13 @@ class SetNotificationTime {
 
     private PendingIntent getPendingIntent(int classNumCode, String intentTypeStr){
         Intent intent = new Intent(context, AlarmReceiver.class);
-        intent.putExtra("ClassNumCode", classNumCode + 1);
+        intent.putExtra("ClassNumCode", classNumCode);
         intent.setType(intentTypeStr);
 
         return PendingIntent.getBroadcast(context, classNumCode, intent, 0);
     }
 
+    @SuppressLint("SimpleDateFormat")
     Long getAlarmTime(int h, int min){
 
         TimeZone timeZone = TimeZone.getTimeZone("Asia/Tokyo");
