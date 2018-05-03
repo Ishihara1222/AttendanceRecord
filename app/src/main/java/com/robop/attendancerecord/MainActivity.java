@@ -1,5 +1,6 @@
 package com.robop.attendancerecord;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
 import android.support.v4.view.ViewPager;
@@ -49,6 +50,12 @@ public class MainActivity extends AppCompatActivity  {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.alertSetting:
+                Intent intent = new Intent(this, SettingClassTimeActivity.class);
+                startActivity(intent);
+                break;
+        }
         return true;
     }
 }
