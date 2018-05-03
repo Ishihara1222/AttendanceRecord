@@ -42,6 +42,21 @@ public class MainFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+
+        //ListItem初期化
+        ListItemModel listItemModel = new ListItemModel();
+        for (int i=0; i<5; i++){
+            listItemModel.setSubjectName("未設定");
+            listItemModel.setAttendNum(0);
+            listItemModel.setAbsentNum(0);
+            listItemModel.setLateNum(0);
+            listItems.add(listItemModel);
+        }
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         return inflater.inflate(R.layout.fragment_main, container, false);
     }
@@ -49,15 +64,6 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, final Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-
-        /*
-        ListItemModel listItemModel = new ListItemModel();
-        listItemModel.setSubjectName("未設定");
-        listItemModel.setAttendNum(0);
-        listItemModel.setAbsentNum(0);
-        listItemModel.setLateNum(0);
-        listItems.add(listItemModel);
-        */
 
         listView = view.findViewById(R.id.listView);
 
