@@ -1,6 +1,7 @@
 package com.robop.attendancerecord;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,20 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     ArrayList<ListItemModel> listItems = new ArrayList<>();    //ListViewのAdapterに入れる情報
 
-    //listItemsの中身
-    ArrayList<String> subjectNameList = new ArrayList<>();   //教科名
-    ArrayList<Integer> attendNumList = new ArrayList<>();    //出席数
-    ArrayList<Integer> absentNumList = new ArrayList<>();    //欠席数
-    ArrayList<Integer> lateNumList = new ArrayList<>();      //遅刻数
-
+    ListAdapter adapter;
     ListView listView;
 
     Activity activity;
@@ -67,22 +64,34 @@ public class MainFragment extends Fragment {
 
         listView = view.findViewById(R.id.listView);
 
-        ListAdapter adapter = new ListAdapter(activity.getApplicationContext(), R.layout.list_item, listItems);
+        adapter = new ListAdapter(activity.getApplicationContext(), R.layout.list_item, listItems);
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                EditSubjectNameDialog editSubjectNameDialog = EditSubjectNameDialog.newInstance(position);
-
-                editSubjectNameDialog.show(getFragmentManager(), null);
-            }
-        });
+        listView.setOnItemClickListener(this);
     }
 
     @Override
-    public void onDestroyView(){
-        super.onDestroyView();
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View dialogView = getLayoutInflater().inflate(R.layout.activity_subjectdialog, null);
+        builder.setView(dialogView)
+                .setPositiveButton("決定", (dialogInterface, i) -> {
+
+                    EditText editText = dialogView.findViewById(R.id.edit_subject_name);
+
+                    ListItemModel listItemModel = new ListItemModel();
+                    listItemModel.setSubjectName(editText.getText().toString());
+                    listItems.set(position, listItemModel);
+                    adapter.notifyDataSetChanged();
+
+                })
+                .setNegativeButton("キャンセル", (dialogInterface, i) -> {
+
+                })
+
+                .show();
+
     }
 
 }
