@@ -1,5 +1,6 @@
 package com.robop.attendancerecord;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
@@ -9,13 +10,19 @@ import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 public class SettingClassTimeActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
@@ -89,20 +96,32 @@ public class SettingClassTimeActivity extends AppCompatActivity implements Compo
     }
 
     private void setAlarmTime(int element){
-        final Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int monthOfYear = calendar.get(Calendar.MONTH);
-        final int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-        final int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        final int minute = calendar.get(Calendar.MINUTE);
+        final Calendar calendarTarget = Calendar.getInstance();
+        final int year = calendarTarget.get(Calendar.YEAR);
+        final int monthOfYear = calendarTarget.get(Calendar.MONTH);
+        final int dayOfMonth = calendarTarget.get(Calendar.DAY_OF_MONTH);
+        final int hour = calendarTarget.get(Calendar.HOUR_OF_DAY);
+        final int minute = calendarTarget.get(Calendar.MINUTE);
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(SettingClassTimeActivity.this, (timePicker, hourOfDay, minute1) -> {
             alarmCalendar[element].set(Calendar.YEAR, year);
             alarmCalendar[element].set(Calendar.MONTH, monthOfYear);
-            alarmCalendar[element].set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            alarmCalendar[element].set(Calendar.DAY_OF_MONTH, dayOfMonth-1);
             alarmCalendar[element].set(Calendar.HOUR_OF_DAY, hourOfDay);
             alarmCalendar[element].set(Calendar.MINUTE, minute1);
             alarmCalendar[element].set(Calendar.SECOND, 0);
+
+            //現在時刻を過ぎているかどうか確認
+            Calendar calendarNow = Calendar.getInstance();
+            TimeZone timeZone = TimeZone.getTimeZone("Asia/Tokyo");
+            calendarNow.setTimeZone(timeZone);
+
+            long targetMillis = calendarTarget.getTimeInMillis();
+            long nowMillis = calendarNow.getTimeInMillis();
+
+            if (targetMillis < nowMillis){
+                alarmCalendar[element].add(Calendar.DAY_OF_MONTH, 1);
+            }
 
             endClassTime[element].setText(String.format("%02d:%02d", hourOfDay, minute1));
         }, hour, minute, true);
@@ -155,22 +174,21 @@ public class SettingClassTimeActivity extends AppCompatActivity implements Compo
     }
 
     private void register(long alarmTimeMillis, int classNum){
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) SettingClassTimeActivity.this.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = getPendingIntent(classNum);
 
         if (alarmManager != null){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(alarmTimeMillis, null), pendingIntent);
-            }else {
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTimeMillis, pendingIntent);
-            }
+            //alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTimeMillis, pendingIntent);
+            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTimeMillis, AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+            @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
+            Log.d("setAlarmTime", dateFormat.format(alarmTimeMillis));
         }
 
         //pref保存
     }
 
     private void unregister(int classNum){
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) SettingClassTimeActivity.this.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             alarmManager.cancel(getPendingIntent(classNum));
         }
