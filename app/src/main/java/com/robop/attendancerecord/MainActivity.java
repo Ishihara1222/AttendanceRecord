@@ -11,8 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+
+    ViewPager viewPager;
+    int currentPageNum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +34,17 @@ public class MainActivity extends AppCompatActivity  {
         String[] tabNames = getResources().getStringArray(R.array.tabNames);    //TabLayoutに表示する文字を管理する配列
 
         TabLayout tabLayout = findViewById(R.id.tabs);
-        ViewPager viewPager = findViewById(R.id.pager);
+        viewPager = findViewById(R.id.pager);
 
-        //曜日の数だけFragment生成
-        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabNames);
+        if (savedInstanceState == null){
+            //曜日の数だけFragment生成
+            PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabNames);
 
-        viewPager.setAdapter(pagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+            viewPager.setAdapter(pagerAdapter);
+            tabLayout.setupWithViewPager(viewPager);
+        }
+
+        viewPager.addOnPageChangeListener(this);
 
     }
 
@@ -48,9 +56,31 @@ public class MainActivity extends AppCompatActivity  {
         Log.d("classNumResult", String.valueOf(attendClassNum));
 
         //TODO Realmに保存
-        //Realm realm = Realm.getDefaultInstance();
+        /*
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
 
+        Realm realm = Realm.getInstance(realmConfiguration);
+        */
 
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        if (state == ViewPager.SCROLL_STATE_SETTLING){
+            currentPageNum = viewPager.getCurrentItem();
+        }
     }
 
     @Override
