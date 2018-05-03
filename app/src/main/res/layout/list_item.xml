@@ -39,19 +39,27 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/attendRecord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="出席 0回"
+                android:textSize="20sp"/>
+
+            <TextView
                 android:id="@+id/absentRecord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="欠席回数 0回"
-                android:textSize="20sp" />
+                android:text="欠席 0回"
+                android:textSize="20sp"
+                android:layout_marginLeft="30dp"/>
 
             <TextView
                 android:id="@+id/lateRecord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="遅刻回数 0回"
+                android:text="遅刻 0回"
                 android:textSize="20sp"
-                android:layout_marginLeft="50dp"/>
+                android:layout_marginLeft="30dp"/>
 
         </LinearLayout>
 

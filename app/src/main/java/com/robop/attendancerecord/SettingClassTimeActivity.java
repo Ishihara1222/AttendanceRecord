@@ -158,14 +158,3 @@ public class SettingClassTimeActivity extends AppCompatActivity implements View.
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-

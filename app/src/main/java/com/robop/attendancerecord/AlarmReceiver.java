@@ -23,7 +23,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         String channelId = "default";
 
-        String title = classNumCode + "限の授業に出席しましたか?";
+        String title = classNumCode + 1 + "限の授業に出席しましたか?";
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, classNumCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

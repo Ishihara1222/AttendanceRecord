@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class MainFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null){
             int currentPageNum = bundle.getInt("currentViewPage");
+            Log.d("currentPage", String.valueOf(currentPageNum));
 
             GetSubjectData getSubjectData = new GetSubjectData(getContext());
             listItems = getSubjectData.getSubjectDataList(currentPageNum);
@@ -74,8 +76,8 @@ public class MainFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                AlertDialogFragment newFragment = new AlertDialogFragment(position);
-                newFragment.show(activity.getFragmentManager(), "missiles");
+                EditSubjectNameDialog editSubjectNameDialog = new EditSubjectNameDialog(position);
+                editSubjectNameDialog.show(activity.getFragmentManager(), "subjectName");
             }
         });
     }

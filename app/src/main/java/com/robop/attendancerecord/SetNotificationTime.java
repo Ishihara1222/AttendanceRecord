@@ -60,6 +60,7 @@ class SetNotificationTime {
     }
 
     void setNotification(Long[] alarmTimes){
+        //TODO 次次日からの通知がこない
         //TODO 授業が無ければ通知は鳴らさない
 
         int classExistFlag;

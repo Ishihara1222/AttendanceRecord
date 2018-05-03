@@ -1,9 +1,11 @@
 package com.robop.attendancerecord;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +15,8 @@ import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity  {
 
+    String[] tabNames;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +24,7 @@ public class MainActivity extends AppCompatActivity  {
 
         Realm.init(this);
 
-        String[] tabNames = getResources().getStringArray(R.array.tabNames);    //TabLayoutに表示する文字を管理する配列
+        tabNames = getResources().getStringArray(R.array.tabNames);    //TabLayoutに表示する文字を管理する配列
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         ViewPager viewPager = findViewById(R.id.pager);
@@ -45,10 +49,10 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     @Override
-    public void onRestart(){
-        super.onRestart();
+    public void onResume(){
+        super.onResume();
 
-        //reloadFragmentData();     //Fragment内のListデータ更新
+        //TODO Fragment内のListデータ更新
     }
 
     @Override
@@ -68,11 +72,4 @@ public class MainActivity extends AppCompatActivity  {
         }
         return true;
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-
-    }
-
-
 }

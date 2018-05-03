@@ -29,7 +29,7 @@ class GetSubjectData {
 
         ArrayList<CustomListItem> listItems = new ArrayList<>();
         ArrayList<String> subjectNameList = new ArrayList<>();
-        //ArrayList<Integer> attendNumList = new ArrayList<>();
+        ArrayList<Integer> attendNumList = new ArrayList<>();
         ArrayList<Integer> absentNumList = new ArrayList<>();
         ArrayList<Integer> lateNumList = new ArrayList<>();
 
@@ -76,26 +76,28 @@ class GetSubjectData {
                 //Realm上にデータがある教科の場合
                 if (subjectRealmData != null){
                     subjectNameList.add(subjectRealmData.getSubjectName());
-                    //attendNumList.add(subjectRealmData.getAttendNum());
+                    attendNumList.add(subjectRealmData.getAttendNum());
                     absentNumList.add(subjectRealmData.getAbsentNum());
                     lateNumList.add(subjectRealmData.getLateNum());
                 }else{
                     subjectNameList.add("未設定");
+                    attendNumList.add(0);
                     absentNumList.add(0);
                     lateNumList.add(0);
                 }
 
-                CustomListItem item = new CustomListItem(subjectNameList.get(i), absentNumList.get(i), lateNumList.get(i));
+                CustomListItem item = new CustomListItem(subjectNameList.get(i), attendNumList.get(i), absentNumList.get(i), lateNumList.get(i));
                 listItems.add(item);
             }
             //Realm上に一つもデータがない場合
         }else{
             for (int i=0; i<5; i++){
                 subjectNameList.add("未設定");
+                attendNumList.add(0);
                 absentNumList.add(0);
                 lateNumList.add(0);
 
-                CustomListItem item = new CustomListItem(subjectNameList.get(i), absentNumList.get(i), lateNumList.get(i));
+                CustomListItem item = new CustomListItem(subjectNameList.get(i), attendNumList.get(i), absentNumList.get(i), lateNumList.get(i));
                 listItems.add(item);
 
                 initSubjectRealmData(currentPage, currentClassFirst + i);

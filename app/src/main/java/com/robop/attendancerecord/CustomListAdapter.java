@@ -20,7 +20,7 @@ public class CustomListAdapter extends ArrayAdapter<CustomListItem>  {
     CustomListAdapter(@NonNull Context context, @LayoutRes int resource, List<CustomListItem> listItems) {
         super(context, resource, listItems);
 
-        this.resource = resource;;
+        this.resource = resource;
         this.listItems = listItems;
         this.layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -28,6 +28,7 @@ public class CustomListAdapter extends ArrayAdapter<CustomListItem>  {
     private static class ViewHolder {
         private TextView classNumHolder;
         private TextView subjectNameHolder;
+        private TextView attendNumHolder;
         private TextView absentNumHolder;
         private TextView lateNumHolder;
     }
@@ -43,6 +44,7 @@ public class CustomListAdapter extends ArrayAdapter<CustomListItem>  {
 
             viewHolder.classNumHolder = convertView.findViewById(R.id.classNum);
             viewHolder.subjectNameHolder =  convertView.findViewById(R.id.subjectName);
+            viewHolder.attendNumHolder = convertView.findViewById(R.id.attendRecord);
             viewHolder.absentNumHolder = convertView.findViewById(R.id.absentRecord);
             viewHolder.lateNumHolder = convertView.findViewById(R.id.lateRecord);
             convertView.setTag(viewHolder);
@@ -53,10 +55,10 @@ public class CustomListAdapter extends ArrayAdapter<CustomListItem>  {
         CustomListItem listItem = this.listItems.get(position);     //ListView内に表示する情報
 
         viewHolder.classNumHolder.setText(position+1 + "限");
-
-        viewHolder.subjectNameHolder.setText("教科名 " + listItem.getSubjectName());
-        viewHolder.absentNumHolder.setText("欠席回数 " + String.valueOf(listItem.getAbsentNum()) + "回");
-        viewHolder.lateNumHolder.setText("遅刻回数 " + String.valueOf(listItem.getLateNum()) + "回");
+        viewHolder.subjectNameHolder.setText(listItem.getSubjectName());
+        viewHolder.attendNumHolder.setText("出席 " + String.valueOf(listItem.getAttendNum()) + "回");
+        viewHolder.absentNumHolder.setText("欠席 " + String.valueOf(listItem.getAbsentNum()) + "回");
+        viewHolder.lateNumHolder.setText("遅刻 " + String.valueOf(listItem.getLateNum()) + "回");
 
         return convertView;
     }

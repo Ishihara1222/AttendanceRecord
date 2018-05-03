@@ -3,17 +3,23 @@ package com.robop.attendancerecord;
 public class CustomListItem{
 
     private String subjectName; //教科名
+    private int attendNum;
     private int absentNum;  //欠席回数
     private int lateNum;    //遅刻回数
 
-    CustomListItem(String subjectName, int absentNum, int lateNum){
+    CustomListItem(String subjectName, int attendNum, int absentNum, int lateNum){
         this.subjectName = subjectName;
+        this.attendNum = attendNum;
         this.absentNum = absentNum;
         this.lateNum = lateNum;
     }
 
     public String getSubjectName() {
         return subjectName;
+    }
+
+    public int getAttendNum() {
+        return attendNum;
     }
 
     public int getAbsentNum() {
@@ -26,6 +32,10 @@ public class CustomListItem{
 
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
+    }
+
+    public void setAttendNum(int attendNum) {
+        this.attendNum = attendNum;
     }
 
     public void setAbsentNum(int absentNum) {

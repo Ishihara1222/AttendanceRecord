@@ -15,14 +15,14 @@ import android.widget.EditText;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-public class AlertDialogFragment extends DialogFragment {
+public class EditSubjectNameDialog extends DialogFragment {
 
     Realm realm;
     private int position;
     View view;
     Activity activity;
 
-    public AlertDialogFragment(int clickPosition){
+    public EditSubjectNameDialog(int clickPosition){
         this.position = clickPosition;
     }
 
@@ -51,12 +51,12 @@ public class AlertDialogFragment extends DialogFragment {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        //setSubjectName(realm);
+                        setSubjectName(realm);
                     }
                 })
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                       AlertDialogFragment.this.getDialog().cancel();
+                       EditSubjectNameDialog.this.getDialog().cancel();
                     }
                 });
         return builder.create();
@@ -72,7 +72,9 @@ public class AlertDialogFragment extends DialogFragment {
             public void execute(@NonNull Realm realm) {
                 SubjectRealmData subjectRealmData = realm.where(SubjectRealmData.class).equalTo("classId", position).findFirst();
 
-                //subjectRealmData.setSubjectName(subjectName);
+                if (subjectRealmData != null){
+                    subjectRealmData.setSubjectName(subjectName);
+                }
             }
         });
     }
