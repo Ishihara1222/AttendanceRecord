@@ -26,11 +26,11 @@ public class ListAdapter extends ArrayAdapter<ListItemModel>  {
     }
 
     private static class ViewHolder {
-        private TextView classNumHolder;
-        private TextView subjectNameHolder;
-        private TextView attendNumHolder;
-        private TextView absentNumHolder;
-        private TextView lateNumHolder;
+        private TextView classNumHolder;    //◯限
+        private TextView subjectNameHolder; //教科名
+        private TextView attendNumHolder;   //出席回数
+        private TextView absentNumHolder;   //欠席回数
+        private TextView lateNumHolder;     //遅刻回数
     }
 
     @NonNull
