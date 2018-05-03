@@ -1,17 +1,15 @@
 package com.robop.attendancerecord;
 
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 
-
-public class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
+public class PagerAdapter extends FragmentPagerAdapter {
 
     private String[] tabTitles; //月〜土
-    private ViewPager viewPager;
 
-    CustomFragmentPagerAdapter(FragmentManager fragmentManager, String[] tabNames) {
+    PagerAdapter(FragmentManager fragmentManager, String[] tabNames) {
         super(fragmentManager);
         this.tabTitles = tabNames;
     }

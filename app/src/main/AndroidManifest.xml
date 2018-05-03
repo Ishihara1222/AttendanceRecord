@@ -16,15 +16,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
-        <activity android:name=".SettingClassTimeActivity">
 
-        </activity>
-
-        <receiver
-            android:name=".AlarmReceiver"
-            android:process=":remote" />
-
-        <activity android:name=".AttendanceResultActivity" />
     </application>
 
 </manifest>

@@ -11,13 +11,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CustomListAdapter extends ArrayAdapter<CustomListItem>  {
+public class ListAdapter extends ArrayAdapter<ListItemModel>  {
 
     private int resource;
-    private List<CustomListItem> listItems;
+    private List<ListItemModel> listItems;
     private LayoutInflater layoutInflater;
 
-    CustomListAdapter(@NonNull Context context, @LayoutRes int resource, List<CustomListItem> listItems) {
+    ListAdapter(@NonNull Context context, @LayoutRes int resource, List<ListItemModel> listItems) {
         super(context, resource, listItems);
 
         this.resource = resource;
@@ -52,7 +52,7 @@ public class CustomListAdapter extends ArrayAdapter<CustomListItem>  {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        CustomListItem listItem = this.listItems.get(position);     //ListView内に表示する情報
+        ListItemModel listItem = this.listItems.get(position);     //ListView内に表示する情報
 
         viewHolder.classNumHolder.setText(position+1 + "限");
         viewHolder.subjectNameHolder.setText(listItem.getSubjectName());

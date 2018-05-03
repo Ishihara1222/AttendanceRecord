@@ -1,11 +1,8 @@
 package com.robop.attendancerecord;
 
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,22 +27,11 @@ public class MainActivity extends AppCompatActivity  {
         ViewPager viewPager = findViewById(R.id.pager);
 
         //曜日の数だけFragment生成
-        CustomFragmentPagerAdapter customFragmentPagerAdapter = new CustomFragmentPagerAdapter(getSupportFragmentManager(), tabNames);
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabNames);
 
-        viewPager.setAdapter(customFragmentPagerAdapter);
+        viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        SetNotificationTime setNotificationTime = new SetNotificationTime(getApplicationContext());
-
-        //TODO アプリを開くたび初期値設定されてしまうので値保持処理が必要
-        Long[] alarmTimes = new Long[5];
-        alarmTimes[0] = setNotificationTime.getAlarmTime(10, 50);
-        alarmTimes[1] = setNotificationTime.getAlarmTime(12, 40);
-        alarmTimes[2] = setNotificationTime.getAlarmTime(15, 10);
-        alarmTimes[3] = setNotificationTime.getAlarmTime(17, 0);
-        alarmTimes[4] = setNotificationTime.getAlarmTime(18, 50);
-
-        setNotificationTime.setNotification(alarmTimes);     //通知設定処理
     }
 
     @Override
@@ -63,13 +49,6 @@ public class MainActivity extends AppCompatActivity  {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-
-        switch (item.getItemId()){
-            case R.id.alertSetting:     //通知設定画面へ
-                Intent intent = new Intent(this, SettingClassTimeActivity.class);
-                startActivity(intent);
-                break;
-        }
         return true;
     }
 }
