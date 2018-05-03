@@ -42,7 +42,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        //ListItem初期化
+        //ListItem初期化   TODO Realmから取得
         ListItemModel listItemModel = new ListItemModel();
         for (int i=0; i<5; i++){
             listItemModel.setSubjectName("未設定");

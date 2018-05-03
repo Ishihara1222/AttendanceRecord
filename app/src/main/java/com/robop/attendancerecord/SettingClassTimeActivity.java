@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,8 +16,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -179,7 +176,7 @@ public class SettingClassTimeActivity extends AppCompatActivity implements Compo
 
         if (alarmManager != null){
             //alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTimeMillis, pendingIntent);
-            alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTimeMillis, AlarmManager.INTERVAL_DAY * 7, pendingIntent);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTimeMillis, AlarmManager.INTERVAL_DAY * 7, pendingIntent);
             @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
             Log.d("setAlarmTime", dateFormat.format(alarmTimeMillis));
         }

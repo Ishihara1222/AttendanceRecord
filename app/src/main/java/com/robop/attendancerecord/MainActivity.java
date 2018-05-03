@@ -6,14 +6,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity  {
-
-    String[] tabNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +21,13 @@ public class MainActivity extends AppCompatActivity  {
 
         Realm.init(this);
 
-        tabNames = getResources().getStringArray(R.array.tabNames);    //TabLayoutに表示する文字を管理する配列
+        //TODO AlarmReceiverからのgetIntentを処理
+        Intent intent = getIntent();
+        if (intent != null){
+            getResultAttend(intent);
+        }
+
+        String[] tabNames = getResources().getStringArray(R.array.tabNames);    //TabLayoutに表示する文字を管理する配列
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         ViewPager viewPager = findViewById(R.id.pager);
@@ -35,11 +40,17 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
+    private void getResultAttend(Intent intent){
+        final int attendResult = intent.getIntExtra("attendResult", -1);
+        final int attendClassNum = intent.getIntExtra("classNumResult", -1);
 
-        //TODO Fragment内のListデータ更新
+        Log.d("attendResult", String.valueOf(attendResult));
+        Log.d("classNumResult", String.valueOf(attendClassNum));
+
+        //TODO Realmに保存
+        //Realm realm = Realm.getDefaultInstance();
+
+
     }
 
     @Override
