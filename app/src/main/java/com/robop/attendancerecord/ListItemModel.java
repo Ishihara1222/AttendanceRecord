@@ -1,20 +1,27 @@
 package com.robop.attendancerecord;
 
+public class ListItemModel {
 
-public class CustomScheduleInfoListItem {
+    private String subjectName; //教科名
+    private int attendNum;  //出席回数
+    private int absentNum;  //欠席回数
+    private int lateNum;    //遅刻回数
 
-    private String subjectName;
-    private int absentNum;
-    private int lateNum;
+    ListItemModel(){};
 
-    public CustomScheduleInfoListItem(String subjectName, int absentNum, int lateNum){
+    public ListItemModel(String subjectName, int attendNum, int absentNum, int lateNum){
         this.subjectName = subjectName;
+        this.attendNum = attendNum;
         this.absentNum = absentNum;
         this.lateNum = lateNum;
     }
 
     public String getSubjectName() {
         return subjectName;
+    }
+
+    public int getAttendNum() {
+        return attendNum;
     }
 
     public int getAbsentNum() {
@@ -29,6 +36,10 @@ public class CustomScheduleInfoListItem {
         this.subjectName = subjectName;
     }
 
+    public void setAttendNum(int attendNum) {
+        this.attendNum = attendNum;
+    }
+
     public void setAbsentNum(int absentNum) {
         this.absentNum = absentNum;
     }
@@ -36,4 +47,5 @@ public class CustomScheduleInfoListItem {
     public void setLateNum(int lateNum) {
         this.lateNum = lateNum;
     }
+
 }
