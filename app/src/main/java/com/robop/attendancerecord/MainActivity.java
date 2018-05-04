@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             getResultAttend(intent);
         }
 
+
+
         String[] tabNames = getResources().getStringArray(R.array.tabNames);    //TabLayoutに表示する文字を管理する配列
 
         TabLayout tabLayout = findViewById(R.id.tabs);

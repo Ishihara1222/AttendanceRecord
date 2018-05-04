@@ -7,6 +7,15 @@ public class ListItemModel {
     private int absentNum;  //欠席回数
     private int lateNum;    //遅刻回数
 
+    ListItemModel(){};
+
+    public ListItemModel(String subjectName, int attendNum, int absentNum, int lateNum){
+        this.subjectName = subjectName;
+        this.attendNum = attendNum;
+        this.absentNum = absentNum;
+        this.lateNum = lateNum;
+    }
+
     public String getSubjectName() {
         return subjectName;
     }

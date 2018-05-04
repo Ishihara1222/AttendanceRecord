@@ -62,7 +62,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
             Log.d("currentPage", String.valueOf(currentPageNum));
         }
 
-        ListItemModel listItemModel = new ListItemModel();
+        ListItemModel itemModel;
 
         RealmResults<ListRealmModel> result = realm.where(ListRealmModel.class).equalTo("dayOfWeekId", currentPageNum).findAll();   //曜日合わせる
 
@@ -72,33 +72,29 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
                 //Realm上にデータがある教科の場合
                 if (realmModel != null){
-                    listItemModel.setSubjectName(realmModel.getSubjectName());
-                    listItemModel.setAttendNum(realmModel.getAttendResult());
-                    listItemModel.setAbsentNum(realmModel.getAbsentResult());
-                    listItemModel.setLateNum(realmModel.getLateResult());
+
+                    itemModel = new ListItemModel(realmModel.getSubjectName(), realmModel.getAttendResult(), realmModel.getAbsentResult(), realmModel.getLateResult());
+
                 } else {
-                    listItemModel.setSubjectName("未設定");
-                    listItemModel.setAttendNum(0);
-                    listItemModel.setAbsentNum(0);
-                    listItemModel.setLateNum(0);
+
+                    itemModel = new ListItemModel("未設定", 0, 0, 0);
                 }
 
-                listItems.add(listItemModel);
+                listItems.add(itemModel);
+
             }
 
             //Realm上にデータが一つも無い場合
         } else {
             for (int i=0; i<5; i++){
-                listItemModel.setSubjectName("未設定");
-                listItemModel.setAttendNum(0);
-                listItemModel.setAbsentNum(0);
-                listItemModel.setLateNum(0);
-                listItems.add(listItemModel);
+
+                itemModel = new ListItemModel("未設定", 0, 0, 0);
+
+                listItems.add(itemModel);
 
                 initRealmData(currentPageNum, i+1);
             }
         }
-
     }
 
     @Override
@@ -140,12 +136,12 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
                     realm = Realm.getInstance(realmConfiguration);
 
-                    RealmResults<ListRealmModel> results = realm.where(ListRealmModel.class).equalTo("dayOfWeekId", currentPageNum).and().equalTo("classId", position).findAll();
+                    RealmResults<ListRealmModel> results = realm.where(ListRealmModel.class).equalTo("dayOfWeekId", currentPageNum).and().equalTo("classId", position + 1).findAll();
                     ListRealmModel realmModel = results.get(0);
 
                     realm.beginTransaction();
                     if (realmModel != null) {
-                        Log.d("result", String.valueOf(results.size()));
+                        Log.d("result", String.valueOf(realmModel));
                         realmModel.setSubjectName(editText.getText().toString());
                     }
                     realm.commitTransaction();
