@@ -22,6 +22,7 @@
         <activity android:name=".SettingClassTimeActivity" />
 
         <receiver android:name=".AlarmReceiver" />
+        <receiver android:name=".NotificationReceiver" />
 
     </application>
 

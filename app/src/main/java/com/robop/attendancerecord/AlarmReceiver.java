@@ -25,7 +25,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Intent actionIntent[] = new Intent[3];
         for (int i=0; i<actionIntent.length; i++){
-            actionIntent[i] = new Intent(context, MainActivity.class);
+            actionIntent[i] = new Intent(context, NotificationReceiver.class);
+            actionIntent[i].setAction(Intent.ACTION_SEND);
 
             actionIntent[i].putExtra("classNumResult", classNum);
             if (i==0) actionIntent[i].putExtra("attendResult", ATTEND);
@@ -36,7 +37,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         PendingIntent actionPendingIntent[] = new PendingIntent[3];
         int pendingRequestCode = 100;   //アラームのほうで1~5まで使っちゃってるので別途定義
         for (int i=0; i<actionPendingIntent.length; i++){
-            actionPendingIntent[i] = PendingIntent.getActivity(context, pendingRequestCode, actionIntent[i], PendingIntent.FLAG_ONE_SHOT);
+            actionPendingIntent[i] = PendingIntent.getBroadcast(context, pendingRequestCode, actionIntent[i], PendingIntent.FLAG_ONE_SHOT);
         }
 
         Notification.Action action[] = new Notification.Action[3];

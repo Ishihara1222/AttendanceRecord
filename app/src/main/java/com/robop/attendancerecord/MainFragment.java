@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class MainFragment extends Fragment implements AdapterView.OnItemClickListener {
@@ -129,7 +128,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
                     listItems.set(position, listItemModel);
                     adapter.notifyDataSetChanged();
 
-                    //TODO Realm書き込み
+                    //Realmに教科名書き込み
                     RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
                             .deleteRealmIfMigrationNeeded()
                             .build();
@@ -141,20 +140,9 @@ public class MainFragment extends Fragment implements AdapterView.OnItemClickLis
 
                     realm.beginTransaction();
                     if (realmModel != null) {
-                        Log.d("result", String.valueOf(realmModel));
                         realmModel.setSubjectName(editText.getText().toString());
                     }
                     realm.commitTransaction();
-
-                    /*
-                    realm.executeTransactionAsync(realm -> {
-                        ListRealmModel realmModel = realm.where(ListRealmModel.class).equalTo("dayOfWeekId", currentPageNum).and().equalTo("classId", position).findFirst();
-
-                        if (realmModel != null){
-                            realmModel.setSubjectName(editText.getText().toString());
-                        }
-                    });
-                    */
 
                 })
                 .setNegativeButton("キャンセル", (dialogInterface, i) -> {

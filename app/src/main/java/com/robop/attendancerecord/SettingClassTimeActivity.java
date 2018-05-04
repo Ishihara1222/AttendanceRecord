@@ -62,7 +62,7 @@ public class SettingClassTimeActivity extends AppCompatActivity implements Compo
             alarmCalendar[i] = Calendar.getInstance();
         }
 
-        //prefチェック
+        //TODO prefチェック
 
     }
 
@@ -181,7 +181,7 @@ public class SettingClassTimeActivity extends AppCompatActivity implements Compo
             Log.d("setAlarmTime", dateFormat.format(alarmTimeMillis));
         }
 
-        //pref保存
+        //TODO pref保存
     }
 
     private void unregister(int classNum){
@@ -190,7 +190,7 @@ public class SettingClassTimeActivity extends AppCompatActivity implements Compo
             alarmManager.cancel(getPendingIntent(classNum));
         }
 
-        //pref削除
+        //TODO pref削除
     }
 
     private PendingIntent getPendingIntent(int classNum){

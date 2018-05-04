@@ -9,14 +9,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
-public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+public class MainActivity extends AppCompatActivity {
 
     ViewPager viewPager;
-    int currentPageNum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +27,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         setContentView(R.layout.activity_main);
 
         Realm.init(this);
-
-        //TODO AlarmReceiverからのgetIntentを処理
-        Intent intent = getIntent();
-        if (intent != null){
-            getResultAttend(intent);
-        }
-
-
 
         String[] tabNames = getResources().getStringArray(R.array.tabNames);    //TabLayoutに表示する文字を管理する配列
 
@@ -46,43 +41,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             tabLayout.setupWithViewPager(viewPager);
         }
 
-        viewPager.addOnPageChangeListener(this);
-
-    }
-
-    private void getResultAttend(Intent intent){
-        final int attendResult = intent.getIntExtra("attendResult", -1);
-        final int attendClassNum = intent.getIntExtra("classNumResult", -1);
-
-        Log.d("attendResult", String.valueOf(attendResult));
-        Log.d("classNumResult", String.valueOf(attendClassNum));
-
-        //TODO Realmに保存
-        /*
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
-                .deleteRealmIfMigrationNeeded()
-                .build();
-
-        Realm realm = Realm.getInstance(realmConfiguration);
-        */
-
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        if (state == ViewPager.SCROLL_STATE_SETTLING){
-            currentPageNum = viewPager.getCurrentItem();
-        }
     }
 
     @Override

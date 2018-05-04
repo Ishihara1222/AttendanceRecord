@@ -15,7 +15,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return MainFragment.newInstance(position); //Fragment生成メソッドの呼び出し
+        return MainFragment.newInstance(position); //Fragment生成メソッドの呼び出し    //TODO 今日の曜日にあたるFragmentから表示させたい
     }
 
     @Override
